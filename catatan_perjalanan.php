@@ -25,17 +25,29 @@ else{
 
 		if(isset($_POST['urut_data'])){
 			$dataSortValue = $_POST['sorting'];
+			$metodeSorting = $_POST['methodSorting'];
 			if($dataSortValue == "tanggal"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY tanggal ASC");
+				if($metodeSorting == "ascending"){
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY tanggal ASC");
+				}
+				elseif ($metodeSorting == "descending") {
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY tanggal DESC");
+				}
 			}
 			elseif($dataSortValue == "waktu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY waktu ASC");
+				if($metodeSorting == "ascending"){
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY waktu ASC");
+				}
+				elseif ($metodeSorting == "descending") {
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY waktu DESC");
+				}
+				
 			}
 			elseif($dataSortValue == "lokasi"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY lokasi ASC");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY lokasi ASC");
 			}
 			elseif($dataSortValue == "suhu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY suhu_tubuh ASC");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY suhu_tubuh ASC");
 			}
 		}
 		else{
@@ -109,6 +121,18 @@ else{
 									Suhu Tubuh
 								</option>
 							</select>
+
+							<br>
+
+							<input type="radio" name="methodSorting" value="ascending" required>
+							<label>Ascending</label>
+
+							<br>
+
+							<input type="radio" name="methodSorting" value="descending" required>
+							<label>Descending</label>
+
+							<br>
 
 							<input type="submit" name="urut_data" value="Urutkan">
 						</form>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2023 at 05:17 AM
+-- Generation Time: Jan 25, 2023 at 05:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -42,7 +42,9 @@ CREATE TABLE `catatan_perjalanan` (
 
 INSERT INTO `catatan_perjalanan` (`id`, `id_user`, `tanggal`, `waktu`, `lokasi`, `suhu_tubuh`) VALUES
 (1, 2, '2023-01-18', '16:08', 'bengkel', 35),
-(2, 2, '2023-01-10', '13:39', 'bengkel 2', 40);
+(2, 2, '2023-01-10', '13:39', 'bengkel 2', 40),
+(3, 3, '2023-01-19', '14:12', 'bengkel 3', 20),
+(4, 3, '2023-01-17', '13:15', 'bengkel 4', 33);
 
 -- --------------------------------------------------------
 
@@ -90,7 +92,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `catatan_perjalanan`
 --
 ALTER TABLE `catatan_perjalanan`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
