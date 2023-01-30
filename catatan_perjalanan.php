@@ -25,17 +25,57 @@ else{
 
 		if(isset($_POST['urut_data'])){
 			$dataSortValue = $_POST['sorting'];
+			$metodeSorting = $_POST['methodSorting'];
 			if($dataSortValue == "tanggal"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY tanggal ASC");
+				if($metodeSorting == "ascending"){
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY tanggal ASC");
+				}
+				elseif ($metodeSorting == "descending") {
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY tanggal DESC");
+				}
 			}
 			elseif($dataSortValue == "waktu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY waktu ASC");
+				if($metodeSorting == "ascending"){
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY waktu ASC");
+				}
+				elseif ($metodeSorting == "descending") {
+					$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY waktu DESC");
+				}
+				
 			}
 			elseif($dataSortValue == "lokasi"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY lokasi ASC");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY lokasi ASC");
 			}
 			elseif($dataSortValue == "suhu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan ORDER BY suhu_tubuh ASC");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE id_user='$data_idUser' ORDER BY suhu_tubuh ASC");
+			}
+		}
+		elseif(isset($_POST['submit_cari_data'])){
+			$cariData = $_POST['searching'];
+			$cariDataCatatan = $_POST['cari_data'];
+
+			if($cariData == "tanggal"){
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE (tanggal LIKE '%$cariDataCatatan%' AND id_user = '$data_idUser');");
+			}
+
+			elseif($cariData == "waktu"){
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE waktu LIKE '%$cariDataCatatan%';");
+			}
+
+			elseif($cariData == "lokasi"){
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE lokasi LIKE '%$cariDataCatatan%';");
+			}
+
+			elseif($cariData == "suhu"){
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE suhu_tubuh LIKE '%$cariDataCatatan%';");
+			}
+
+			$number_of_results = mysqli_num_rows($result);
+			if ($number_of_results == 0 || mysqli_num_rows($result) == 0) {
+			 	echo "<script>
+				alert('Data Tidak Ditemukan :(');window.location='catatan_perjalanan.php'
+				</script>
+				";
 			}
 		}
 		else{
@@ -110,7 +150,41 @@ else{
 								</option>
 							</select>
 
+							<br>
+
+							<input type="radio" name="methodSorting" value="ascending" required>
+							<label>Ascending</label>
+
+							<br>
+
+							<input type="radio" name="methodSorting" value="descending" required>
+							<label>Descending</label>
+
+							<br>
+
 							<input type="submit" name="urut_data" value="Urutkan">
+						</form>
+
+						<br><br>
+
+						<form action="catatan_perjalanan.php" method="POST">
+							<label>Cari:</label>
+							<input type="text" name="cari_data" placeholder="search" required>
+							<select name="searching">
+								<option value="tanggal">
+									Tanggal
+								</option>
+								<option value="waktu">
+									Waktu
+								</option>
+								<option value="lokasi">
+									Lokasi
+								</option>
+								<option value="suhu">
+									Suhu Tubuh
+								</option>
+							</select>
+							<input type="submit" name="submit_cari_data" value="Search">
 						</form>
 
 						<br><br>
