@@ -59,15 +59,15 @@ else{
 			}
 
 			elseif($cariData == "waktu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE waktu LIKE '%$cariDataCatatan%';");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE (waktu LIKE '%$cariDataCatatan%' AND id_user = '$data_idUser');");
 			}
 
 			elseif($cariData == "lokasi"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE lokasi LIKE '%$cariDataCatatan%';");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE (lokasi LIKE '%$cariDataCatatan%' AND id_user = '$data_idUser');");
 			}
 
 			elseif($cariData == "suhu"){
-				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE suhu_tubuh LIKE '%$cariDataCatatan%';");
+				$result = mysqli_query($conn, "SELECT * FROM catatan_perjalanan WHERE (suhu_tubuh LIKE '%$cariDataCatatan%' AND id_user = '$data_idUser');");
 			}
 
 			$number_of_results = mysqli_num_rows($result);
